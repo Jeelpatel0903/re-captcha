@@ -1,0 +1,20 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" type="email" required />
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" formControlName="password" type="password" required />
+    </div>
+  
+    <!-- reCAPTCHA v2: displayed conditionally based on bot detection -->
+    <re-captcha
+      *ngIf="showRecaptchaV2"
+      [siteKey]="'6Lcb3CkqAAAAADS0QikTHYru8a-_DseKsTV32bco'"
+      (resolved)="handleRecaptchaV2Resolved($event)">
+    </re-captcha>
+  
+    <button type="submit" [disabled]="showRecaptchaV2 && !loginForm.get('recaptcha')?.value">Login</button>
+  </form>
+  
